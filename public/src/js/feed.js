@@ -29,6 +29,7 @@ function createCard(card) {
   cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
   let cardTitle = document.createElement('div');
   cardTitle.className = 'mdl-card__title';
+  cardTitle.id = card._id;
   let image = new Image();
   image.src = card.image_id;
   cardTitle.style.backgroundImage = 'url('+ image.src +')';
