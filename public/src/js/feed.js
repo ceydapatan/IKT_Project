@@ -319,3 +319,50 @@ function initializeLocation() {
     }
 }
 
+        fetch(nominatimURL)
+            .then((res) => {
+                console.log('nominatim res ...', res);
+                return res.json();
+            })
+            .then((data) => {
+                console.log('nominatim res.json() ...', data);
+                locationInput.value = data.display_name;
+                return data;
+            })
+            .then( d => {
+                locationButton.style.display = 'none';
+                locationLoader.style.display = 'none';
+                mapDiv.style.display = 'block';
+
+                const map = new ol.Map({
+                    target: 'map',
+                    layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                    ],
+                    view: new ol.View({
+                        center: ol.proj.fromLonLat([fetchedLocation.longitude, fetchedLocation.latitude]),
+                        zoom: 12
+                    })
+                });
+
+                const layer = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [
+                            new ol.Feature({
+                                geometry: new ol.geom.Point(ol.proj.fromLonLat([fetchedLocation.longitude, fetchedLocation.latitude]))
+                            })
+                        ]
+                    })
+                });
+
+                map.addLayer(layer);
+
+                console.log('map', map)
+            })
+            .catch( (err) => {
+                console.error('err', err)
+                locationInput.value = 'In Berlin';
+            });
+
