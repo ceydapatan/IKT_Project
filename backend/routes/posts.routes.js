@@ -73,6 +73,8 @@ function getOnePost(id) {
     })
 }
 
+
+
 function getAllPosts() {
     return new Promise( async(resolve, reject) => {
         const sendAllPosts = [];
@@ -121,12 +123,15 @@ router.get('/', async(req, res) => {
     })
 });
 
+
+
 // update one post via id
 router.patch('/:id', async(req, res) => {
     try {
 
         const id = req.params.id
-        const updates = req.body
+        const updates = { saved: true }
+        console.log(req.body);
         const options = { new: true };
 
         const result = await Post.findByIdAndUpdate(id, updates, options)

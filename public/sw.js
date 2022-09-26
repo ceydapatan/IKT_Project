@@ -2,8 +2,8 @@ importScripts('/src/js/idb.js');
 importScripts('/src/js/db.js');
 
 
-const CURRENT_STATIC_CACHE = 'static-v3';
-const CURRENT_DYNAMIC_CACHE = 'dynamic-v3';
+const CURRENT_STATIC_CACHE = 'static-v33';
+const CURRENT_DYNAMIC_CACHE = 'dynamic-v33';
 const STATIC_FILES = [
     '/',
     '/index.html',
@@ -61,6 +61,8 @@ self.addEventListener('fetch', event => {
         event.respondWith(
             fetch(event.request)
             .then ( res => {
+                
+
                 const clonedResponse = res.clone();
                 clearAllData('posts')
                 .then( () => {

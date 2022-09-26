@@ -10,6 +10,7 @@ let canvasElement = document.querySelector('#canvas');
 let captureButton = document.querySelector('#capture-btn');
 let imagePicker = document.querySelector('#image-picker');
 let imagePickerArea = document.querySelector('#pick-image');
+let pageContent = document.getElementsByClassName('page-content');
 let file = null;
 let titleValue = '';
 let locationValue = '';
@@ -35,15 +36,21 @@ function createCard(card) {
   cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
   let cardTitle = document.createElement('div');
   let deleteButton = document.createElement('button');
-  //let attendButton = document.createElement('button');
+  let attendButton = document.createElement('button');
+  let spanWrapper = document.createElement('span');
+  let myAttend = document.createElement('span');
+  spanWrapper.className = 'mdl-chip'
+  myAttend.className = 'mdl-chip__text'
+  myAttend.innerHTML = 'You will be attending this event.';
   cardTitle.className = 'mdl-card__title';
   deleteButton.className = 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent delete-btn';
-  //attendButton.className = 'mdl-button mdl-js-button mdl-button--fab mdl-button--colored attend-btn';
-  //attendButton.addEventListener('click', attend);
+  attendButton.className = 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent attend-btn';
+  attendButton.addEventListener('click', attend);
   deleteButton.addEventListener('click', sayHi);
+  attendButton.innerHTML = 'attend';
   deleteButton.innerHTML = 'delete';
   deleteButton.id = card.post_id;
-  // attendButton.id = card.post_id;
+  attendButton.id = card.post_id;
   cardTitle.id = card.post_id;
   //deleteButton.addEventListener('click', deleteOnePicture(deleteButton.id), false);
   let image = new Image();
@@ -52,6 +59,7 @@ function createCard(card) {
   cardTitle.style.backgroundSize = 'cover';
   cardWrapper.appendChild(cardTitle);
   cardTitle.appendChild(deleteButton)
+
   //let deleteIcon = document.createElement('i');
   //deleteIcon.textContent = 'delete';
   //deleteIcon.className = 'material-icons'
@@ -68,6 +76,15 @@ function createCard(card) {
   cardSupportingText.style.textAlign = 'center';
   //cardSupportingText.appendChild(deleteButton);
   cardWrapper.appendChild(cardSupportingText);
+  cardWrapper.appendChild(attendButton);
+  if(card.saved){
+    cardWrapper.appendChild(spanWrapper);
+    spanWrapper.appendChild(myAttend);
+    spanWrapper.style.color = 'green';
+    spanWrapper.style.backgroundColor = 'white';
+
+
+  }
   componentHandler.upgradeElement(cardWrapper);
   sharedMomentsArea.appendChild(cardWrapper);
 }
@@ -113,10 +130,17 @@ fetch('http://localhost:3000/posts')
             sharedMomentsArea.appendChild(noPosts);
 
         }
+
+        else{
+            let numberPosts = document.createElement('div');
+            numberPosts.style.margin = "10px";
+            numberPosts.innerHTML = "Number of Events : " + data.length; 
+            pageContent[0].appendChild(numberPosts);
+        }
         updateUI(data);
     });
 
-if('indexedDB' in window) {
+if('indexedDB' in window ) {
     readAllData('posts')
         .then( data => {
             if(!networkDataReceived) {
@@ -410,7 +434,7 @@ if (result)
 }
 
 
-/* function attend(evt){
+ function attend(evt){
 
     var result = confirm("Want to attend?");
 
@@ -418,17 +442,15 @@ if (result)
 {
    
     console.log('I am saying Hi ' + evt.target.id);
-    console.log('formData', formData)
     
     fetch('http://localhost:3000/posts/' + evt.target.id, {
-        method: 'PATCH',
-        body: JSON.stringify({saved: true})
+        method: 'PATCH'
       })
       .then(res => res.text()) 
       .then(res => console.log(res))
 
 }
-} */
+} 
 
 
 
