@@ -59,7 +59,7 @@ function createCard(card) {
 
 
   let cardTitleTextElement = document.createElement('h2');
-  cardTitleTextElement.className = 'mdl-card__title-text';
+  cardTitleTextElement.className = 'mdl-card__title-text whiteText';
   cardTitleTextElement.textContent = card.title;
   cardTitle.appendChild(cardTitleTextElement);
   let cardSupportingText = document.createElement('div');
@@ -292,6 +292,8 @@ function closeCreatePostModal() {
       createPostArea.style.transform = 'translateY(100vH)';
   }, 1);
 }
+
+
 
 
 locationButton.addEventListener('click', event => {
