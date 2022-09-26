@@ -24,17 +24,26 @@ shareImageButton.addEventListener('click', openCreatePostModal);
 
 closeCreatePostModalButton.addEventListener('click', closeCreatePostModal);
 
+
+
 function createCard(card) {
+    //console.log('das ist card ' + JSON.stringify(card));
   let cardWrapper = document.createElement('div');
   cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
   let cardTitle = document.createElement('div');
+  let deleteButton = document.createElement('button');
   cardTitle.className = 'mdl-card__title';
-  cardTitle.id = card._id;
+  deleteButton.className = 'delete-btn';
+  deleteButton.addEventListener('click', sayHi);
+  deleteButton.id = card.post_id;
+  cardTitle.id = card.post_id;
+  //deleteButton.addEventListener('click', deleteOnePicture(deleteButton.id), false);
   let image = new Image();
   image.src = card.image_id;
   cardTitle.style.backgroundImage = 'url('+ image.src +')';
   cardTitle.style.backgroundSize = 'cover';
   cardWrapper.appendChild(cardTitle);
+  cardTitle.appendChild(deleteButton);
   let cardTitleTextElement = document.createElement('h2');
   cardTitleTextElement.className = 'mdl-card__title-text';
   cardTitleTextElement.textContent = card.title;
@@ -47,6 +56,24 @@ function createCard(card) {
   componentHandler.upgradeElement(cardWrapper);
   sharedMomentsArea.appendChild(cardWrapper);
 }
+
+let test = document.getElementsByClassName("mdl-textfield__input");
+
+
+console.log('das ist test ' + JSON.stringify(test));
+
+
+
+/*function deleteOnePicture(id){
+    console.log('in delete picture');
+    fetch('http://localhost:3000/posts/' + id, {
+        method: 'DELETE',
+      })
+      .then(res => res.text()) // or res.json()
+      .then(res => console.log(res))
+
+} */
+
 
 let networkDataReceived = false;
 
@@ -82,6 +109,7 @@ if('indexedDB' in window) {
 
 
   function sendDataToBackend() {
+    console.log('enamore');
     const formData = new FormData();
     formData.append('title', titleValue);
     formData.append('location', locationValue);
@@ -320,50 +348,29 @@ function initializeLocation() {
     }
 }
 
-        fetch(nominatimURL)
-            .then((res) => {
-                console.log('nominatim res ...', res);
-                return res.json();
-            })
-            .then((data) => {
-                console.log('nominatim res.json() ...', data);
-                locationInput.value = data.display_name;
-                return data;
-            })
-            .then( d => {
-                locationButton.style.display = 'none';
-                locationLoader.style.display = 'none';
-                mapDiv.style.display = 'block';
+let fotos = document.getElementsByClassName("delete-btn");
+console.log('das ist fotos ' + JSON.stringify(fotos));
 
-                const map = new ol.Map({
-                    target: 'map',
-                    layers: [
-                    new ol.layer.Tile({
-                        source: new ol.source.OSM()
-                    })
-                    ],
-                    view: new ol.View({
-                        center: ol.proj.fromLonLat([fetchedLocation.longitude, fetchedLocation.latitude]),
-                        zoom: 12
-                    })
-                });
 
-                const layer = new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: [
-                            new ol.Feature({
-                                geometry: new ol.geom.Point(ol.proj.fromLonLat([fetchedLocation.longitude, fetchedLocation.latitude]))
-                            })
-                        ]
-                    })
-                });
 
-                map.addLayer(layer);
+for (var i = 0; i < fotos.length; i++) {
+    console.log('in for');
+    fotos[i].addEventListener('click', sayHi);
+} 
 
-                console.log('map', map)
-            })
-            .catch( (err) => {
-                console.error('err', err)
-                locationInput.value = 'In Berlin';
-            });
+
+function sayHi(evt){
+
+    console.log('I am saying Hi ' + evt.target.id);
+    fetch('http://localhost:3000/posts/' + evt.target.id, {
+        method: 'DELETE',
+      })
+      .then(res => res.text()) // or res.json()
+      .then(res => console.log(res))
+}
+
+
+
+
+
 

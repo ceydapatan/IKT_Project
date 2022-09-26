@@ -54,8 +54,10 @@ function getOnePost(id) {
                     let base64file = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                     let getPost = new Post({
                         "title": post.title,
+                        "post_id": post._id,
                         "location": post.location, 
                         "image_id": base64file
+
                     });
 
                     resolve(getPost)
