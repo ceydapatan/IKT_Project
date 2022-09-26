@@ -2,8 +2,8 @@ importScripts('/src/js/idb.js');
 importScripts('/src/js/db.js');
 
 
-const CURRENT_STATIC_CACHE = 'static-v27';
-const CURRENT_DYNAMIC_CACHE = 'dynamic-v27';
+const CURRENT_STATIC_CACHE = 'static-v32';
+const CURRENT_DYNAMIC_CACHE = 'dynamic-v32';
 const STATIC_FILES = [
     '/',
     '/index.html',

@@ -17,6 +17,9 @@ let imageURI = '';
 let locationButton = document.querySelector('#location-btn');
 let locationLoader = document.querySelector('#location-loader');
 let fetchedLocation;
+let myStreetName = '';
+let myCityName = '';
+
 
 
 
@@ -313,11 +316,13 @@ locationButton.addEventListener('click', event => {
         fetch(nominatimURL)
             .then((res) => {
                 console.log('nominatim res ...', res);
+    
                 return res.json();
             })
             .then((data) => {
                 console.log('nominatim res.json() ...', data);
                 locationInput.value = data.display_name;
+                myStreetName = data.display_name;
                 return data;
             })
             .then( d => {
@@ -354,7 +359,7 @@ locationButton.addEventListener('click', event => {
             })
             .catch( (err) => {
                 console.error('err', err)
-                locationInput.value = 'In Berlin';
+                locationInput.value = 'In ' + myStreetName;
             });
 
         document.querySelector('#manual-location').classList.add('is-focused');
