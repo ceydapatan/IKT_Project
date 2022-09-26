@@ -55,6 +55,10 @@
   margin: 10px auto;
 }
 
+.no-posts {
+    margin: 10px auto;
+  }
+
 .whiteText {
     color: white;
 }

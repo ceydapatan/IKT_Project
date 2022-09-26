@@ -96,6 +96,17 @@ fetch('http://localhost:3000/posts')
     .then((data) => {
         networkDataReceived = true;
         console.log('From backend ...', data);
+        if(data.length == 0){
+            console.log("que cometi");
+            let noPosts = document.createElement('div');
+            noPosts.className= "mdl-card mdl-card--border mdl-shadow--2dp through mdl-shadow--16dp no-posts";
+            let noPostsText = document.createElement('div');
+            noPostsText.className = 'mdl-card__title mdl-card__title-text';
+            noPostsText.innerHTML = "Unfortunately there are no upcoming events any time soon. Follow us on LinkedIn to be notified about upcoming events.";
+            noPosts.appendChild(noPostsText);
+            sharedMomentsArea.appendChild(noPosts);
+
+        }
         updateUI(data);
     });
 
