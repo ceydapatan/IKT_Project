@@ -33,8 +33,9 @@ function createCard(card) {
   let cardTitle = document.createElement('div');
   let deleteButton = document.createElement('button');
   cardTitle.className = 'mdl-card__title';
-  deleteButton.className = 'delete-btn';
+  deleteButton.className = 'mdl-button mdl-js-button mdl-button--fab mdl-button--colored delete-btn';
   deleteButton.addEventListener('click', sayHi);
+  deleteButton.innerHTML = 'delete';
   deleteButton.id = card.post_id;
   cardTitle.id = card.post_id;
   //deleteButton.addEventListener('click', deleteOnePicture(deleteButton.id), false);
@@ -361,12 +362,19 @@ for (var i = 0; i < fotos.length; i++) {
 
 function sayHi(evt){
 
+    var result = confirm("Want to delete?");
+
+if (result)
+{
     console.log('I am saying Hi ' + evt.target.id);
     fetch('http://localhost:3000/posts/' + evt.target.id, {
         method: 'DELETE',
       })
-      .then(res => res.text()) // or res.json()
+      .then(res => res.text()) 
       .then(res => console.log(res))
+      window.location.reload();
+
+}
 }
 
 

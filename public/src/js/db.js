@@ -62,3 +62,5 @@ function deleteOneData(st, id) {
         console.log('Data deleted ...');
         });
 }
+
+

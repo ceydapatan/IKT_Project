@@ -19,5 +19,8 @@
   "license": "ISC",
   "devDependencies": {
     "http-server": "^14.1.0"
+  },
+  "dependencies": {
+    "@material/button": "^14.0.0"
   }
 }
