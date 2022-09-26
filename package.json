@@ -21,6 +21,9 @@
     "http-server": "^14.1.0"
   },
   "dependencies": {
-    "@material/button": "^14.0.0"
+    "@lottiefiles/lottie-player": "^1.5.7",
+    "@material/button": "^14.0.0",
+    "lottie": "0.0.1",
+    "lottie-web": "^5.9.6"
   }
 }
