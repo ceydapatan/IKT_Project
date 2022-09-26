@@ -18,7 +18,8 @@ router.post('/', upload.single('file'), async(req, res) => {
         const newPost = new Post({
             title: req.body.title,
             location: req.body.location,
-            image_id: req.file.filename
+            image_id: req.file.filename,
+            saved: false
         })
         console.log('newPost', newPost)
         await newPost.save();
@@ -56,7 +57,8 @@ function getOnePost(id) {
                         "title": post.title,
                         "post_id": post._id,
                         "location": post.location, 
-                        "image_id": base64file
+                        "image_id": base64file,
+                        "saved": post.saved
 
                     });
 
@@ -117,6 +119,23 @@ router.get('/', async(req, res) => {
             error: "Post do not exist!"
         });
     })
+});
+
+// update one post via id
+router.patch('/:id', async(req, res) => {
+    try {
+
+        const id = req.params.id
+        const updates = req.body
+        const options = { new: true };
+
+        const result = await Post.findByIdAndUpdate(id, updates, options)
+        res.send(result);
+       
+    } catch(error) {
+        console.log(error.message)
+
+    }
 });
 
 

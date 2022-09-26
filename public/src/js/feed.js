@@ -32,11 +32,15 @@ function createCard(card) {
   cardWrapper.className = 'shared-moment-card mdl-card mdl-shadow--2dp';
   let cardTitle = document.createElement('div');
   let deleteButton = document.createElement('button');
+  //let attendButton = document.createElement('button');
   cardTitle.className = 'mdl-card__title';
-  deleteButton.className = 'mdl-button mdl-js-button mdl-button--fab mdl-button--colored delete-btn';
+  deleteButton.className = 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent delete-btn';
+  //attendButton.className = 'mdl-button mdl-js-button mdl-button--fab mdl-button--colored attend-btn';
+  //attendButton.addEventListener('click', attend);
   deleteButton.addEventListener('click', sayHi);
   deleteButton.innerHTML = 'delete';
   deleteButton.id = card.post_id;
+  // attendButton.id = card.post_id;
   cardTitle.id = card.post_id;
   //deleteButton.addEventListener('click', deleteOnePicture(deleteButton.id), false);
   let image = new Image();
@@ -44,7 +48,13 @@ function createCard(card) {
   cardTitle.style.backgroundImage = 'url('+ image.src +')';
   cardTitle.style.backgroundSize = 'cover';
   cardWrapper.appendChild(cardTitle);
-  cardTitle.appendChild(deleteButton);
+  cardTitle.appendChild(deleteButton)
+  //let deleteIcon = document.createElement('i');
+  //deleteIcon.textContent = 'delete';
+  //deleteIcon.className = 'material-icons'
+  //deleteButton.appendChild(deleteIcon);
+
+
   let cardTitleTextElement = document.createElement('h2');
   cardTitleTextElement.className = 'mdl-card__title-text';
   cardTitleTextElement.textContent = card.title;
@@ -53,6 +63,7 @@ function createCard(card) {
   cardSupportingText.className = 'mdl-card__supporting-text';
   cardSupportingText.textContent = card.location;
   cardSupportingText.style.textAlign = 'center';
+  //cardSupportingText.appendChild(deleteButton);
   cardWrapper.appendChild(cardSupportingText);
   componentHandler.upgradeElement(cardWrapper);
   sharedMomentsArea.appendChild(cardWrapper);
@@ -376,6 +387,27 @@ if (result)
 
 }
 }
+
+
+/* function attend(evt){
+
+    var result = confirm("Want to attend?");
+
+if (result)
+{
+   
+    console.log('I am saying Hi ' + evt.target.id);
+    console.log('formData', formData)
+    
+    fetch('http://localhost:3000/posts/' + evt.target.id, {
+        method: 'PATCH',
+        body: JSON.stringify({saved: true})
+      })
+      .then(res => res.text()) 
+      .then(res => console.log(res))
+
+}
+} */
 
 
 
