@@ -103,7 +103,7 @@ fetch('http://localhost:3000/posts')
             let animation = document.createElement('span');
 
             noPostsText.className = 'mdl-card__title mdl-card__title-text';
-            noPostsText.innerHTML = "Unfortunately, there are no upcoming events any time soon. Follow us on our socials to be notified about upcoming events.";
+            noPostsText.innerHTML = '<a style="color: #497aab;" href="./help/index.html"><span style="color:black;">Unfortunately, there are no upcoming events any time soon. Follow us on our socials to be notified about upcoming events.</span></a>';
             animation.innerHTML = '<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script><lottie-player src="https://assets3.lottiefiles.com/packages/lf20_98vgucqb.json"  background="transparent"  speed="1"  style=" margin-left: auto; margin-right: auto; width: 180px; height: 180px;"  loop  autoplay></lottie-player>'
             noPosts.appendChild(noPostsText);
             noPosts.appendChild(animation);
